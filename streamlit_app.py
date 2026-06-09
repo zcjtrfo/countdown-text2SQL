@@ -219,8 +219,8 @@ if user_question:
             # 2. Connect to the database safely
             # Note: Using URI ensures the database is opened in READ-ONLY mode. 
             # This prevents the LLM from executing destructive commands like DROP TABLE.
-            # Make sure your database file is named "countdown.db" and is in the same folder.
-            db_uri = 'file:countdown.db?mode=ro'
+            # Make sure your database file is named "countdown (8).db" and is in the same folder.
+            db_uri = 'file:countdown (8).db?mode=ro'
             conn = sqlite3.connect(db_uri, uri=True)
             
             # 3. Execute the query and load results into a Pandas DataFrame
