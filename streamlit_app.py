@@ -13,6 +13,42 @@ except FileNotFoundError:
 
 client = genai.Client(api_key=api_key)
 
+TERMINOLOGY = """
+14 round format – format involving eight letters games, four numbers games and two conundrums. It was used between Series 2 and Series 45, uniquely for grand finals and specials. This is the same format used by the original French show Des chiffres et des lettres, although the rounds are not in the same order.
+15 round format (new) – the revised 15 round format introduced during Series 68, consisting of 10 letters games, four numbers games and one conundrum.
+15 round format (old) – the original 15 round format consisting of 11 letters games, three numbers games and one conundrum. Used from Series 46 until early in Series 68.
+480 club – informal name for the players that scored at least 480 points as an Octochamp during their runs under the 9 round format.
+800/900/1000 club – informal name for the players that have scored at least 800/900/1000 points as an Octochamp during their runs under the 15 round format.
+9 round format – the original format, consisting of six letters games, two numbers games and one conundrum. Was used between Series 1 and Series 45.
+Ambulance - used when a contestant scores 3 consecutive nines. To date, there is only one known occurrence, in Episode 5654.
+Arithmetician – the member of the presenting team that provides solutions to the numbers rounds if such a solution evades the contestants, and also puts up the letters and numbers.
+CECIL – Countdown's Electronic Calculator in Leeds, the computer that generates the random numbers between 100 and 999 for the numbers games. (Although the show is now filmed in Manchester, this term is still used).
+Century – a score of 100 or more. This is quite common under the 15 round system, but also happened in the 14 round finals, first achieved by Clive Spate in Series 6.
+Contestant – a Countdown player, someone who appears on Countdown as a player.
+Conundrum – the nine-letter anagram at the end of the show. Players buzz in with the right answer, only the player that buzzes in first with the right answer gets the 10 points. If the player gets it wrong, the other player has the rest of the 30 seconds to buzz in.
+Darren – a word which is the longest in that given round, and the only word of that length. For instance, from the selection ACELOPQST, POLECATS would be the only eight-letter word.
+Dictionary Corner – a special celebrity guest and a lexicographer together working to find the best words in selections where the contestants don't get the longest possible word. They're often helped by the show's producers, led by Damian Eadie, by way of an earpiece. The guest also gives a short anecdote between Rounds 6 and 7.
+Goody bag – the prize received by all contestants, currently consisting of a Countdown mug, a pair of Countdown pens, a Countdown clock, Oxford Dictionary of English Third Edition, and Susie Dent's Modern Tribes. A teapot is included for contestants that win at least one game.
+Final / Grand final – the final game of each standard series, with the two players who have won their quarter-final and semi-final facing off to be a series champion. Until Series 46 this was a 14 round game, now it's always a 15 round game.
+Heats / prelims - the episodes of each standard series which are not part of the series finals. The winning contestant (the champion) stay on to the next episode where they play a new contestant (the challenger). If a player wins 8 prelim episodes, they retire as an octochamp and two new contenstants appear on the next episode.
+The (series) finals - the seven episodes at the end of each regular series which determine the series champion in knockout format (four Quarterfinals, two Semifinals, one Grand Final)
+Dictionary Corner Guest – a celebrity guest invited on to Countdown for one day's filming (usually five shows). They help find the longest words in the letters rounds, and give a short anecdote between Rounds 6 and 7.
+Letters round – a round using nine letters where the contestants make the longest word they can, using each letter no more than once. Words must be in Oxford Dictionaries Online.
+Lexicographer – a resident expert who helps to find the longest words from the letters games, with the help of a celebrity guest.
+Max game – a game in which the best possible score is achieved in every single round
+Numbers round – a round using six randomly chose numbers between 1 and 100 and a target between 100 and 999. The aim is to use the six numbers once each to make the target number using the four basic mathematical operations (addition, division, subtraction and multiplication). The numbered cards available are 1 to 10 twice each, 25, 50, 75 and 100.
+Octochamp – a player who wins eight games without being defeated. Eight games is the maximum, and after that the player retires unbeaten. The word is derived from champion and Octo- meaning eight.
+Oxford Dictionaries Online (ODO) – the official dictionary used to judge words on Countdown since Series 71.
+Oxford Dictionary of English (ODE) – the dictionary used to judge words on Countdown from Series 43 to Series 70, produced by Oxford University Press.
+Pencam – a small camera shaped like a pen, which used to display words found in the dictionary from Series 22 until Series 70.
+Phantom – a letter seen by a contestant although not actually in the selection. For example, declaring COUNTDOWN from DDNNOOTUW would be a result of seeing a "phantom C".
+Raw score – a scoring system whereby one's opponent's scores are ignored, as if they were playing on their own.
+Series – a sequence of over 100 episodes with just one eventual winner at the end. A series winner is a player that wins the grand final of a series.
+Teapot – the individual prize for a player that wins an episode.
+Viscount – in Series 46, players were only permitted to win six games maximum instead of eight, the name Octochamp was not suitable for these players as the octo- is a reference to eight. So the players were called Viscounts, with reference to VI meaning six in Roman numerals, and -count referring to Countdown.
+Xicount – an unofficial term for players who become Octochamps and then go on to win their series, giving them a total of 11 wins, the maximum possible in a single series. Xicount is from XI meaning 11 in Roman numerals, and -count referring to Countdown.
+"""
+
 # --- 2. THE DATABASE SCHEMA ---
 SCHEMA_TEXT = """
 Notes
@@ -545,6 +581,9 @@ def translate_text_to_sql(user_question):
             "If the question was perfectly clear, write 'No major assumptions made.'"
         ]
     }}
+
+    TERMINOLOGY:
+    {TERMINOLOGY}
     
     DATABASE SCHEMA AND ACCOMPANYING NOTES:
     {SCHEMA_TEXT}
