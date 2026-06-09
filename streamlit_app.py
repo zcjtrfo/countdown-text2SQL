@@ -14,7 +14,7 @@ except FileNotFoundError:
 client = genai.Client(api_key=api_key)
 
 # --- 2. THE DATABASE SCHEMA ---
-# The LLM must know your exact column names and data types to write valid SQL.
+# (Paste your massive schema string here just like before)
 SCHEMA_TEXT = """
 -- --- CORE REFERENCE TABLES ---
 
@@ -240,4 +240,24 @@ if user_question:
             
             # 3. Display the SQL
             st.write("### Generated SQL Query")
-            st.code(
+            st.code(generated_sql, language="sql")
+            
+            # 4. Connect to the database safely
+            db_uri = 'file:countdown.db?mode=ro'
+            conn = sqlite3.connect(db_uri, uri=True)
+            
+            # 5. Execute the query
+            results_df = pd.read_sql_query(generated_sql, conn)
+            conn.close()
+            
+            # 6. Display the results
+            st.write("### Query Results")
+            if results_df.empty:
+                st.info("The query ran successfully, but returned no results.")
+            else:
+                st.dataframe(results_df, use_container_width=True)
+                
+        except sqlite3.Error as e:
+            st.error(f"**Database Error:** The generated SQL was invalid. \n\nDetails: {e}")
+        except Exception as e:
+            st.error(f"**Application Error:** {e}")
