@@ -596,7 +596,7 @@ if user_question:
             st.code(generated_sql, language="sql")
             
             # 4. Connect to the database safely
-            db_uri = 'file:countdown.db?mode=ro'
+            db_uri = 'file:countdown (8).db?mode=ro'
             conn = sqlite3.connect(db_uri, uri=True)
             
             # 5. Execute the query
