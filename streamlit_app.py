@@ -37,7 +37,9 @@ Letters round – a round using nine letters where the contestants make the long
 Lexicographer – a resident expert who helps to find the longest words from the letters games, with the help of a celebrity guest.
 Max game – a game in which the best possible score is achieved in every single round
 Numbers round – a round using six randomly chose numbers between 1 and 100 and a target between 100 and 999. The aim is to use the six numbers once each to make the target number using the four basic mathematical operations (addition, division, subtraction and multiplication). The numbered cards available are 1 to 10 twice each, 25, 50, 75 and 100.
-Octochamp – a player who wins eight games without being defeated. Eight games is the maximum, and after that the player retires unbeaten. The word is derived from champion and Octo- meaning eight.
+Octochamp – a player who wins eight consecutive prelim episodes without being defeated. Eight episodes is the maximum, and after that the player retires unbeaten (usually appearing again in the series finals).
+Octorun - a player's run of 8 consecutive wins in prelim episodes, thereby becoming an Octochamp.
+Octototal - a player's total score across their 8 prelim wins as an Octochamp.
 Oxford Dictionaries Online (ODO) – the official dictionary used to judge words on Countdown since Series 71.
 Oxford Dictionary of English (ODE) – the dictionary used to judge words on Countdown from Series 43 to Series 70, produced by Oxford University Press.
 Pencam – a small camera shaped like a pen, which used to display words found in the dictionary from Series 22 until Series 70.
