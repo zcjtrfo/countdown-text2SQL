@@ -656,7 +656,7 @@ def translate_text_to_sql(user_question, max_retries=3):
                 ],
                 # This forces OpenAI to return valid JSON
                 response_format={ "type": "json_object" },
-                temperature=0.0 # Keep temperature low for strict coding tasks
+                temperature=1 # Keep temperature low for strict coding tasks
             )
             
             # Extract the text from the OpenAI response object
