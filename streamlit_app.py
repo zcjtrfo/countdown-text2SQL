@@ -3,15 +3,22 @@ import sqlite3
 import pandas as pd
 import json # <-- NEW IMPORT
 from google import genai
+from openai import OpenAI
 
 # --- 1. CONFIGURATION & AUTHENTICATION ---
+# try:
+#     api_key = st.secrets["GEMINI_API_KEY"]
+# except FileNotFoundError:
+#     st.error("API Key not found. Please configure Streamlit secrets.")
+#     st.stop()
 try:
-    api_key = st.secrets["GEMINI_API_KEY"]
+    api_key = st.secrets["OPENAI_API_KEY"] # <-- Fetching the OpenAI key
 except FileNotFoundError:
     st.error("API Key not found. Please configure Streamlit secrets.")
     st.stop()
 
-client = genai.Client(api_key=api_key)
+#client = genai.Client(api_key=api_key)
+client = OpenAI(api_key=api_key)
 
 TERMINOLOGY = """
 14 round format – format involving eight letters games, four numbers games and two conundrums. It was used between Series 2 and Series 45, uniquely for grand finals and specials. This is the same format used by the original French show Des chiffres et des lettres, although the rounds are not in the same order.
@@ -562,53 +569,113 @@ ep_id	tx_date	winner_name	winner_score	loser_name	loser_score	deficit
 """
 
 # --- 3. THE LLM FUNCTION ---
-def translate_text_to_sql(user_question):
-    """Sends the schema and user question to Gemini to get SQL and assumptions."""
+# def translate_text_to_sql(user_question):
+#     """Sends the schema and user question to Gemini to get SQL and assumptions."""
     
-    prompt = f"""
+#     prompt = f"""
+#     You are an expert SQLite developer and Countdown show historian. 
+#     Translate the user's question into a valid, read-only SQL query.
+    
+#     CRITICAL RULES:
+#     1. You MUST respond with a valid JSON object.
+#     2. Do NOT wrap the JSON in markdown blocks (no ```json).
+#     3. The JSON must exactly match the structure below.
+    
+#     JSON STRUCTURE:
+#     {{
+#         "sql_query": "The raw SQL query string here",
+#         "assumptions": [
+#             "Any assumption you made about what the user meant.",
+#             "Any clarification about edge cases (e.g., 'Excluding tiebreaks').",
+#             "If the question was perfectly clear, write 'No major assumptions made.'"
+#         ]
+#     }}
+
+#     TERMINOLOGY:
+#     {TERMINOLOGY}
+    
+#     DATABASE SCHEMA AND ACCOMPANYING NOTES:
+#     {SCHEMA_TEXT}
+    
+#     USER QUESTION: 
+#     {user_question}
+#     """
+    
+#     # We enforce JSON output using the config
+#     response = client.models.generate_content(
+#         model="gemini-3.5-flash-lite",
+#         contents=prompt,
+#         config=genai.types.GenerateContentConfig(
+#             response_mime_type="application/json",
+#         )
+#     )
+    
+#     # Parse the JSON string into a Python dictionary
+#     try:
+#         result_dict = json.loads(response.text)
+#         return result_dict.get("sql_query", ""), result_dict.get("assumptions", [])
+#     except json.JSONDecodeError:
+#         raise ValueError("The LLM failed to return valid JSON.")
+
+# --- 3. THE LLM FUNCTION OPENAI---
+@st.cache_data(show_spinner=False, ttl=86400)
+def translate_text_to_sql(user_question, max_retries=3):
+    """Sends the schema and question to OpenAI, returning JSON with SQL and assumptions."""
+    
+    # OpenAI strongly recommends explicitly telling the model to output JSON 
+    # in the system prompt when using response_format="json_object"
+    system_prompt = f"""
     You are an expert SQLite developer and Countdown show historian. 
     Translate the user's question into a valid, read-only SQL query.
     
     CRITICAL RULES:
-    1. You MUST respond with a valid JSON object.
-    2. Do NOT wrap the JSON in markdown blocks (no ```json).
-    3. The JSON must exactly match the structure below.
+    1. You MUST output a valid JSON object.
+    2. The JSON must exactly match the structure below.
     
     JSON STRUCTURE:
     {{
         "sql_query": "The raw SQL query string here",
         "assumptions": [
             "Any assumption you made about what the user meant.",
-            "Any clarification about edge cases (e.g., 'Excluding tiebreaks').",
             "If the question was perfectly clear, write 'No major assumptions made.'"
         ]
     }}
-
-    TERMINOLOGY:
-    {TERMINOLOGY}
     
-    DATABASE SCHEMA AND ACCOMPANYING NOTES:
+    DATABASE SCHEMA:
     {SCHEMA_TEXT}
-    
-    USER QUESTION: 
-    {user_question}
     """
     
-    # We enforce JSON output using the config
-    response = client.models.generate_content(
-        model="gemini-3.5-flash-lite",
-        contents=prompt,
-        config=genai.types.GenerateContentConfig(
-            response_mime_type="application/json",
-        )
-    )
-    
-    # Parse the JSON string into a Python dictionary
-    try:
-        result_dict = json.loads(response.text)
-        return result_dict.get("sql_query", ""), result_dict.get("assumptions", [])
-    except json.JSONDecodeError:
-        raise ValueError("The LLM failed to return valid JSON.")
+    for attempt in range(max_retries):
+        try:
+            # The OpenAI API call format
+            response = client.chat.completions.create(
+                model="gpt-5.6-luna", # <-- Setting your requested model
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_question}
+                ],
+                # This forces OpenAI to return valid JSON
+                response_format={ "type": "json_object" },
+                temperature=0.0 # Keep temperature low for strict coding tasks
+            )
+            
+            # Extract the text from the OpenAI response object
+            result_text = response.choices[0].message.content
+            
+            # Parse the JSON string into a Python dictionary
+            result_dict = json.loads(result_text)
+            return result_dict.get("sql_query", ""), result_dict.get("assumptions", [])
+            
+        except Exception as e:
+            # Catch rate limits or server errors (OpenAI's equivalent of 503)
+            error_msg = str(e).lower()
+            if "503" in error_msg or "rate limit" in error_msg or "unavailable" in error_msg:
+                if attempt < max_retries - 1:
+                    time.sleep(2 ** attempt) # Wait 1s, then 2s, then 4s...
+                    continue
+            
+            # If it's a different error (like bad JSON or auth failure), crash gracefully
+            raise e
 
 # --- 4. THE STREAMLIT UI ---
 st.title("🔢 Countdown TV Show Explorer")
