@@ -562,6 +562,7 @@ ep_id	tx_date	winner_name	winner_score	loser_name	loser_score	deficit
 """
 
 # --- 3. THE LLM FUNCTION ---
+@st.cache_data(show_spinner=False, ttl=3600)
 def translate_text_to_sql(user_question):
     """Sends the schema and user question to Gemini to get SQL and assumptions."""
     
@@ -614,9 +615,12 @@ def translate_text_to_sql(user_question):
 st.title("🔢 Countdown TV Show Explorer")
 st.markdown("Ask a question about historical Countdown episodes, contestants, and scores in plain English.")
 
-user_question = st.text_input("Example: Who had the highest score in series 50?")
+with st.form("query_form"):
+    user_question = st.text_input("Example: Who had the highest score in series 50?")
+    submitted = st.form_submit_button("Ask")
 
-if user_question:
+if submitted and user_question.strip():
+    user_question = " ".join(user_question.split())
     with st.spinner("Analyzing question and writing SQL..."):
         try:
             # 1. Get the SQL and Assumptions from Gemini
