@@ -27,24 +27,26 @@ Century – a score of 100 or more. This is quite common under the 15 round syst
 Contestant – a Countdown player, someone who appears on Countdown as a player.
 Conundrum – the nine-letter anagram at the end of the show. Players buzz in with the right answer, only the player that buzzes in first with the right answer gets the 10 points. If the player gets it wrong, the other player has the rest of the 30 seconds to buzz in.
 Darren – a word which is the longest in that given round, and the only word of that length. For instance, from the selection ACELOPQST, POLECATS would be the only eight-letter word.
+Declaration - the act of a contestant announcing the word they have found in a letters round, or the solution they have found in a numbers round.
+Declaring [n] - the act of a contestant announcing the length of the word they claimed to have found in a letters round, where [n] represents the number of letters in the word. For numbers rounds, it refers to announcing the number they claimed to reached with their calculation.
 Dictionary Corner – a special celebrity guest and a lexicographer together working to find the best words in selections where the contestants don't get the longest possible word. They're often helped by the show's producers, led by Damian Eadie, by way of an earpiece. The guest also gives a short anecdote between Rounds 6 and 7.
-Goody bag – the prize received by all contestants, currently consisting of a Countdown mug, a pair of Countdown pens, a Countdown clock, Oxford Dictionary of English Third Edition, and Susie Dent's Modern Tribes. A teapot is included for contestants that win at least one game.
 Final / Grand final – the final game of each standard series, with the two players who have won their quarter-final and semi-final facing off to be a series champion. Until Series 46 this was a 14 round game, now it's always a 15 round game.
 Heats / prelims - the episodes of each standard series which are not part of the series finals. The winning contestant (the champion) stay on to the next episode where they play a new contestant (the challenger). If a player wins 8 prelim episodes, they retire as an octochamp and two new contenstants appear on the next episode.
 The (series) finals - the seven episodes at the end of each regular series which determine the series champion in knockout format (four Quarterfinals, two Semifinals, one Grand Final)
 Dictionary Corner Guest – a celebrity guest invited on to Countdown for one day's filming (usually five shows). They help find the longest words in the letters rounds, and give a short anecdote between Rounds 6 and 7.
 Letters round – a round using nine letters where the contestants make the longest word they can, using each letter no more than once. Words must be in Oxford Dictionaries Online.
 Lexicographer – a resident expert who helps to find the longest words from the letters games, with the help of a celebrity guest.
-Max game – a game in which the best possible score is achieved in every single round
+Max / maximum - an instance of a contestant achieving the highest possible score in a given round. In the context of a full game, it refers to the maximum possible total score for that game.
+Max game – a game in which the best possible score is achieved in every single round by a contestant.
+Misdeclaring- an instance of a contenstant's word length declarataion not equalling the actual length of their declared word. e.g. STONE being declared as a 6-letter word. For numbers rounds, it refers to when the number they claimed to have reached with their solution is not equal to their declared solution.
 Numbers round – a round using six randomly chose numbers between 1 and 100 and a target between 100 and 999. The aim is to use the six numbers once each to make the target number using the four basic mathematical operations (addition, division, subtraction and multiplication). The numbered cards available are 1 to 10 twice each, 25, 50, 75 and 100.
 Octochamp – a player who wins eight consecutive prelim episodes without being defeated. Eight episodes is the maximum, and after that the player retires unbeaten (usually appearing again in the series finals).
 Octorun - a player's run of 8 consecutive wins in prelim episodes, thereby becoming an Octochamp.
 Octototal - a player's total score across their 8 consecutive prelim wins.
 Oxford Dictionaries Online (ODO) – the official dictionary used to judge words on Countdown since Series 71.
 Oxford Dictionary of English (ODE) – the dictionary used to judge words on Countdown from Series 43 to Series 70, produced by Oxford University Press.
-Pencam – a small camera shaped like a pen, which used to display words found in the dictionary from Series 22 until Series 70.
 Phantom – a letter seen by a contestant although not actually in the selection. For example, declaring COUNTDOWN from DDNNOOTUW would be a result of seeing a "phantom C".
-Raw score – a scoring system whereby one's opponent's scores are ignored, as if they were playing on their own.
+Raw score – the points that a contestant would have scored if they had won/tied the round.
 Series – a sequence of over 100 episodes with just one eventual winner at the end. A series winner is a player that wins the grand final of a series.
 Teapot – the individual prize for a player that wins an episode.
 Viscount – in Series 46, players were only permitted to win six games maximum instead of eight, the name Octochamp was not suitable for these players as the octo- is a reference to eight. So the players were called Viscounts, with reference to VI meaning six in Roman numerals, and -count referring to Countdown.
